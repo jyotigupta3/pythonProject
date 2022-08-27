@@ -51,22 +51,51 @@ class Node:
             current = current.left
         return current
 
-    def delete_node(self, root, key):
-        if root is None or root.val == key:
+    def findPath(self, root, path, k):
+        if root is None:
+            return path
 
+        if k.val < root.val:
+            path.append(root.val)
+            self.findPath(root.left, path, k)
+        if k.val > root.val:
+            path.append(root.val)
+            self.findPath(root.right, path, k)
 
+        if k.val == root.val:
+            path.append(root.val)
+        return path
 
+    def lowestCommonAncestor(self, root, p, q):
+        p_track = []
+        q_track = []
+        p_track = self.findPath(root, p_track, p)
+        q_track = self.findPath(root, q_track, q)
+        i = 0
+        while i < len(p_track) and i < len(q_track):
+            if p_track[i] != q_track[i]:
+                break
 
-
-
+            i += 1
+        return p_track[i - 1]
 
 
 if __name__ == "__main__":
-    root = Node(12)
-    root.insert(6)
-    root.insert(14)
+    root = Node(6)
+    root.insert(2)
+    root.insert(8)
+    root.insert(0)
+    root.insert(4)
+    root.insert(7)
+    root.insert(9)
+    # root.insert(None)
+    # root.insert(None)
     root.insert(3)
+    root.insert(5)
     # print(root.val)
-    root.inorder(root)
-    print(root.search(root, 7))
+    # root.inorder(root)
+    # print(root.search(root, 7))
+    p = Node(2)
+    q = Node(8)
+    print(root.lowestCommonAncestor(root, p, q))
     # root.print_tree()

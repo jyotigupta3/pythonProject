@@ -20,6 +20,7 @@ def reverse_each_word(sentence):
 
 def main(sentence):
     test_str = sentence
+    print(test_str)
     assert reverse_each_word(test_str) == "gnirtS; eb2 desrever..."
     return 0
 

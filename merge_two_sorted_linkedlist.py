@@ -39,23 +39,27 @@ def print_singly_linked_list(node, sep):
             # fptr.write(sep)
             print(sep, end="")
 
+class Solution:
+    def mergeTwoLists(self, list1, list2):
+        temp = None
+        if list1 is None:
+            return list2
+        if list2 is None:
+            return list1
 
-def mergeLists(head1, head2):
-    temp = None
-    while head1:
-        temp = head1
-        head1 = head1.next
-        if head1 is not None:
-            print("head1", head1.data, temp.data)
+        if list1.data <= list2.data:
+            temp = list1
+            temp.next = self.mergeTwoLists(list1.next, list2)
         else:
-            print("head1 = ", None)
-
-    while head2:
-        head1 = head2
-        head2 = head2.next
-    return head1
+            temp = list2
+            temp.next = self.mergeTwoLists(list1, list2.next)
+        return temp
 
 
+"""
+Input: list1 = [1,2,4], list2 = [1,3,4]
+Output: [1,1,2,3,4,4]
+"""
 if __name__ == '__main__':
     # fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
@@ -78,7 +82,7 @@ if __name__ == '__main__':
             llist2_item = int(input())
             llist2.insert_node(llist2_item)
 
-        llist3 = mergeLists(llist1.head, llist2.head)
+        llist3 = Solution().mergeTwoLists(llist1.head, llist2.head)
 
         print_singly_linked_list(llist3, ' ')
         # fptr.write('\n')
